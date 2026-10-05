@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service Definition for Equity'
+define service ZSD_EQUITY_ME {
+  expose ZIV_EQUITY_ME;
+}

@@ -1,0 +1,36 @@
+managed implementation in class zbp_iv_equity_me unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZIV_EQUITY_ME alias ZEquity
+persistent table ztbl_equity_me
+extensible
+draft table ztbl_equity_me_d
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly:update, numbering : managed ) EquityId;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ztbl_equity_me corresponding extensible
+    {
+      EquityId           = equity_id;
+      EquityName         = equity_name;
+      TotalQty           = total_qty;
+      Status             = status;
+      CreatedBy          = CREATED_BY;
+      CreatedAt          = CREATED_AT;
+      LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+      LastChangedAt      = last_changed_at;
+    }
+}
